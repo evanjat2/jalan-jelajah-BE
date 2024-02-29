@@ -5,11 +5,12 @@ const check = require("../controller/checkLogin");
 
 const userController = require("../controller/userController");
 const bookmarkController = require("../controller/bookmarkController");
+const mlController = require("../controller/mlcontroller");
 
 let routes = (app) => {
   router.post("/auth/signUp", userController.signUp);
   router.post("/auth/signIn", userController.signIn);
-  router.get("/", check.getResponse);
+  router.get("/checkToken", authHeader.auth, check.checkToken);
   router.get(
     "/bookmark",
     authHeader.auth,
@@ -25,6 +26,8 @@ let routes = (app) => {
     authHeader.auth,
     bookmarkController.deleteBookmarkByWisataId
   );
+  router.post("/recommendcbf", mlController.getrecommendcbf);
+  router.post("/recommendcbf2", mlController.getrecommendcbf2);
   app.use(router);
 };
 

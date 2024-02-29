@@ -1,9 +1,10 @@
-const getResponse = (req, res) => {
+const checkToken = (req, res) => {
   try {
-    res.status(200).json("Berhasil");
+    const userId = req.user.userId;
+    res.status(200).json({ msg: "Token Valid" });
   } catch {
-    res.send("Gagal");
+    res.status(400).json({ msg: "Token Invalid" });
   }
 };
 
-module.exports = { getResponse };
+module.exports = { checkToken };

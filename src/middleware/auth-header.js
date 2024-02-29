@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
     if (error.name === "TokenExpiredError") {
       return res.status(401).json({ error: "Token has expired" });
     } else if (error.name === "JsonWebTokenError") {
-      return res.status(401).json({ error: "Invalid token" });
+      return res.status(401).json({ msg: "Token Invalid" });
     } else {
       return res.status(500).json({ error: "Internal Server Error" });
     }
