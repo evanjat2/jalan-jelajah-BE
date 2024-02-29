@@ -101,14 +101,14 @@ const signIn = async (req, res) => {
   }
 };
 
-const getByID = async (req, res) => {
-  // const userID = req.params.uid;
-};
+// const getByID = async (req, res) => {
+//   const userID = req.params.uid;
+// };
 
-const edit = async (req, res) => {
-  // if (!req.body) {
-  //   res.status(404).json({ message: "Data cannot be empty" });
-  // }
-};
+// const edit = async (req, res) => {
+//   if (!req.body) {
+//     res.status(404).json({ message: "Data cannot be empty" });
+//   }
+// };
 
-module.exports = { signIn, signUp, getByID, edit };
+module.exports = { signIn, signUp };
