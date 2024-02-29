@@ -9,13 +9,16 @@ const getUserFromUsername = async (username) => {
   try {
     const userRef = db.collection("users").where("username", "==", username);
     const user = await userRef.get();
-    return user.docs.length > 0;
+    const userArray = []; // Array to collect documents
+    user.forEach((doc) => {
+      userArray.push(doc.id);
+    });
+    return userArray[0];
   } catch (error) {
     console.log(error);
   }
 };
 
-// const { name, username, password, email } = req.body;
 const signUp = async (req, res) => {
   try {
     const { name, username, password, email } = req.body;
@@ -97,18 +100,37 @@ const signIn = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json({ msg: "Terjadi masalah pada server" });
+    res.status(500).json({ msg: "Internal server error" });
   }
 };
 
-// const getByID = async (req, res) => {
-//   const userID = req.params.uid;
-// };
+const updateProfil = async (req, res) => {
+  try {
+    // Get user id from token
+    const userId = req.user.userId;
+    const { name, username, email } = req.body;
+    const checkUser = await getUserFromUsername(username);
+    console.log("user id", userId);
+    console.log("check user", checkUser);
+    if (checkUser == userId || checkUser == undefined) {
+      if (username && email && name) {
+        payload = {
+          name: name,
+          username: username,
+          email: email,
+        };
+        const userRef = db.collection("users").doc(userId);
+        await userRef.update(payload);
+        res.status(200).json({ msg: "Berhasil update profil", user: payload });
+      } else {
+        res.status(400).json({ msg: "Isikan semua kolom yang tersedia" });
+      }
+    } else {
+      res.status(400).json({ msg: "Username telah digunakan" });
+    }
+  } catch (error) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
+};
 
-// const edit = async (req, res) => {
-//   if (!req.body) {
-//     res.status(404).json({ message: "Data cannot be empty" });
-//   }
-// };
-
-module.exports = { signIn, signUp };
+module.exports = { signIn, signUp, updateProfil };
