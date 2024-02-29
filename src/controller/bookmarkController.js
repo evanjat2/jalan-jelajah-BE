@@ -17,7 +17,7 @@ const getBookmarkByUserId = async (req, res) => {
     });
     res.status(200).json({ bookmarks: docsArray });
   } catch (error) {
-    res.status(500).send(err);
+    res.status(500).json({ msg: "Terjadi masalah pada server" });
   }
 };
 
@@ -40,7 +40,7 @@ const addBookmarkByWisataId = async (req, res) => {
       res.status(400).send({ msg: "Bookmark sudah ditambahkan" });
     }
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).json({ msg: "Terjadi masalah pada server" });
   }
 };
 
@@ -59,7 +59,7 @@ const deleteBookmarkByWisataId = async (req, res) => {
       res.status(400).json({ msg: "Tidak ada Bookmark" });
     }
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).json({ msg: "Terjadi masalah pada server" });
   }
 };
 

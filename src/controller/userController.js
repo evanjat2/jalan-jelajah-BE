@@ -20,7 +20,7 @@ const signUp = async (req, res) => {
   try {
     const { name, username, password, email } = req.body;
     if (!name || !username || !password || !email) {
-      res.status(400).send("Mohon isikan semua input dengan benar!");
+      res.status(400).json({ msg: "Mohon isikan semua input dengan benar!" });
     } else {
       const user = await getUserFromUsername(username);
       bcrypt.genSalt(10, function (err, salt) {
@@ -45,13 +45,13 @@ const signUp = async (req, res) => {
             });
             res.status(200).json({ user, token });
           } else {
-            res.status(400).send("Username telah digunakan!");
+            res.status(400).json({ msg: "Username telah digunakan!" });
           }
         });
       });
     }
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).json({ msg: "Terjadi masalah pada server" });
   }
 };
 
@@ -90,14 +90,14 @@ const signIn = async (req, res) => {
           });
           res.status(200).json({ user, token });
         } else {
-          res.status(400).send("Kredensial Invalid");
+          res.status(400).json({ msg: "Kredensial Invalid" });
         }
       } else {
-        res.status(400).send("Kredensial Invalid");
+        res.status(400).json({ msg: "Kredensial Invalid" });
       }
     }
   } catch (error) {
-    res.status(500).send("Terjadi masalah pada server");
+    res.status(500).json({ msg: "Terjadi masalah pada server" });
   }
 };
 
