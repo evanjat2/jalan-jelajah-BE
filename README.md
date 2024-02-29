@@ -86,12 +86,26 @@ Using authorization header : bearer token
 {
   "bookmarks": [
     {
-      "wisataId": "00001",
-      "userId": "6kUyqqwlXRSj6ei8OE3L"
+      "place_name": "place_name",
+      "city": "city",
+      "price": "price",
+      "placeId": "0001",
+      "description": "description",
+      "category": "category",
+      "userId": "6kUyqqwlXRSj6ei8OE3L",
+      "lat": "lat",
+      "long": "long"
     },
     {
-      "wisataId": "00002",
-      "userId": "6kUyqqwlXRSj6ei8OE3L"
+      "place_name": "place_name",
+      "city": "city",
+      "price": "price",
+      "placeId": "0002",
+      "description": "description",
+      "category": "category",
+      "userId": "6kUyqqwlXRSj6ei8OE3L",
+      "lat": "lat",
+      "long": "long"
     }
   ]
 }
