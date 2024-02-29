@@ -97,30 +97,7 @@ Using authorization header : bearer token
 }
 ```
 
-## Add Bookmark By WisataId
-
-- **URL:** `http://34.139.96.186:8080/bookmark`
-- **Method:** POST
-
-Using authorization header : bearer token
-
-### Example Request
-
-```json
-{
-  "wisataId": "00001"
-}
-```
-
-### Example Response
-
-```json
-{
-  "msg": "Berhasil menambahkan bookmark"
-}
-```
-
-## Delete Bookmark By WisataId
+## Delete Bookmark By PlaceId
 
 - **URL:** `http://34.139.96.186:8080/bookmark`
 - **Method:** DELETE
@@ -131,7 +108,7 @@ Using authorization header : bearer token
 
 ```json
 {
-  "wisataId": "00001"
+  "placeId": "00001"
 }
 ```
 
@@ -139,15 +116,54 @@ Using authorization header : bearer token
 
 ```json
 {
-  "bookmarks": [
-    {
-      "wisataId": "00001",
-      "userId": "6kUyqqwlXRSj6ei8OE3L"
-    },
-    {
-      "wisataId": "00002",
-      "userId": "6kUyqqwlXRSj6ei8OE3L"
-    }
-  ]
+  "msg": "Bookmark Berhasil dihapus"
+}
+```
+
+## Add Bookmark By PlaceId
+
+- **URL:** `http://34.139.96.186:8080/bookmark`
+- **Method:** POST
+
+Using authorization header : bearer token
+
+### Example Request
+
+```json
+{
+  "placeId": "00001",
+  "category": "category",
+  "city": "city",
+  "description": "description",
+  "lat": "lat",
+  "long": "long",
+  "place_name": "place_name",
+  "price": "price"
+}
+```
+
+### Example Response
+
+```json
+{
+  "msg": "Berhasil menambahkan bookmark",
+  "data": {
+    "placeId": "00001",
+    "category": "category",
+    "city": "city",
+    "description": "description",
+    "lat": "lat",
+    "long": "long",
+    "place_name": "place_name",
+    "price": "price"
+  }
+}
+```
+
+### Error
+
+```json
+{
+  "msg": "Bookmark sudah ada dilist"
 }
 ```

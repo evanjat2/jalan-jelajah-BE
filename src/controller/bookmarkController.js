@@ -23,21 +23,46 @@ const getBookmarkByUserId = async (req, res) => {
 
 const addBookmarkByWisataId = async (req, res) => {
   try {
-    // Get userId by token
+    // Get userId by tokenres.status(500).send(err);
     const userId = req.user.userId;
-
-    const { wisataId } = req.body;
-    const docId = userId + wisataId;
+    const {
+      placeId,
+      category,
+      city,
+      description,
+      lat,
+      long,
+      place_name,
+      price,
+    } = req.body;
+    const docId = userId + placeId;
     const docRef = db.collection("bookmark").doc(docId);
     doc = await docRef.get();
     if (!doc.exists) {
       await docRef.set({
-        wisataId: wisataId,
         userId: userId,
+        placeId: placeId,
+        category: category,
+        city: city,
+        description: description,
+        lat: lat,
+        long: long,
+        place_name: place_name,
+        price: price,
       });
-      res.status(200).send({ msg: "Berhasil menambahkan bookmark" });
+      data = {
+        placeId,
+        category,
+        city,
+        description,
+        lat,
+        long,
+        place_name,
+        price,
+      };
+      res.status(200).send({ msg: "Berhasil menambahkan bookmark", data });
     } else {
-      res.status(400).send({ msg: "Bookmark sudah ditambahkan" });
+      res.status(400).send({ msg: "Bookmark sudah ada dilist" });
     }
   } catch (err) {
     res.status(500).json({ msg: "Terjadi masalah pada server" });
@@ -48,8 +73,8 @@ const deleteBookmarkByWisataId = async (req, res) => {
   try {
     // Get userId by token
     const userId = req.user.userId;
-    const { wisataId } = req.body;
-    const docId = userId + wisataId;
+    const { placeId } = req.body;
+    const docId = userId + placeId;
     const docRef = db.collection("bookmark").doc(docId);
     doc = await docRef.get();
     if (doc.exists) {
