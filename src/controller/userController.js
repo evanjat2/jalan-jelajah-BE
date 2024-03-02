@@ -22,6 +22,7 @@ const getUserFromUsername = async (username) => {
 const signUp = async (req, res) => {
   try {
     const { name, username, password, email } = req.body;
+    const profilUrl = "https://storage.googleapis.com/profil-image/dummy-pfp.png"
     if (!name || !username || !password || !email) {
       res.status(400).json({ msg: "Mohon isikan semua input dengan benar!" });
     } else {
@@ -36,8 +37,9 @@ const signUp = async (req, res) => {
               username: username,
               password: hash,
               email: email,
+              profilUrl:profilUrl,
             });
-            const user = { name, username, password, email };
+            const user = { name, username, password, email, profilUrl };
             const userId = docRef.id;
             const payload = {
               user: user,
@@ -108,7 +110,7 @@ const updateProfil = async (req, res) => {
   try {
     // Get user id from token
     const userId = req.user.userId;
-    const { name, username, email } = req.body;
+    const { name, username, email, profilUrl } = req.body;
     const checkUser = await getUserFromUsername(username);
     console.log("user id", userId);
     console.log("check user", checkUser);
@@ -118,6 +120,7 @@ const updateProfil = async (req, res) => {
           name: name,
           username: username,
           email: email,
+          profilUrl: profilUrl,
         };
         const userRef = db.collection("users").doc(userId);
         await userRef.update(payload);

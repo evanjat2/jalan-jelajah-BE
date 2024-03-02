@@ -7,6 +7,7 @@ const check = require("../controller/checkLogin");
 const userController = require("../controller/userController");
 const bookmarkController = require("../controller/bookmarkController");
 const mlController = require("../controller/mlcontroller");
+const imageController = require("../controller/imageController");
 
 let routes = (app) => {
   // Check Token
@@ -16,7 +17,7 @@ let routes = (app) => {
   router.post("/auth/signUp", userController.signUp);
   router.post("/auth/signIn", userController.signIn);
   router.patch("/profile", authHeader.auth, userController.updateProfil);
-
+  router.post("/upload", authHeader.auth, imageController.upload);
   // Bookmark
   router.get(
     "/bookmark",
